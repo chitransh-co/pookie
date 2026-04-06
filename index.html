@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pookie | Mayank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="overlay" onclick="enterSite()">
+        <p>TAP TO ENTER POOKIE</p>
+    </div>
+
+    <div id="particle-container"></div>
+
+    <video loop id="myVideo" playsinline preload="auto">
+        <source src="mayank.mp4" type="video/mp4">
+    </video>
+
+    <div class="container" id="mainContent">
+        <div class="glass-box">
+            
+            <div class="pfp-container">
+                <img src="pfp.jpg" alt="Profile" class="pfp">
+            </div>
+            
+            <div class="typing-container">
+                <h1 id="type-name"></h1><span class="cursor">|</span>
+            </div>
+            
+            <div class="social-icons">
+                <a href="https://www.instagram.com/chitransh.xd1/?utm_source=ig_web_button_share_sheet" target="_blank" class="icon-btn instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://discord.gg/7k96qvbEQM" target="_blank" class="icon-btn discord">
+                    <i class="fa-brands fa-discord"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const nameText = "Chitransh"; 
+        const speed = 150; 
+        let charIndex = 0;
+
+        function startTyping() {
+            if (charIndex < nameText.length) {
+                document.getElementById("type-name").innerHTML += nameText.charAt(charIndex);
+                charIndex++;
+                setTimeout(startTyping, speed);
+            }
+        }
+
+        // Particle Engine for Hearts
+        function createHeart() {
+            const container = document.getElementById('particle-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️'; 
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.opacity = Math.random();
+            
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        function enterSite() {
+            const overlay = document.getElementById('overlay');
+            const content = document.getElementById('mainContent');
+            const video = document.getElementById('myVideo');
+            
+            overlay.style.opacity = '0';
+            setTimeout(() => { 
+                overlay.style.display = 'none'; 
+                startTyping();
+                // Start creating hearts every 300ms
+                setInterval(createHeart, 300);
+            }, 600);
+            
+            content.style.opacity = '1';
+            content.style.transform = 'scale(1)';
+            video.muted = false; 
+            video.play();
+        }
+    </script>
+</body>
+</html>
